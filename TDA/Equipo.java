@@ -107,17 +107,12 @@ public class Equipo {
     }
   }
 
-  // ! Revisar esto
-  public void setPuntos(int puntos) {
-    this.puntos += puntos;
-  }
-
   public void setDiferenciaGoles() {
     this.diferenciaGoles = this.golesAFavor - this.golesEnContra;
   }
 
-  public void setPartidosJugados(int partidosJugados) {
-    this.partidosJugados += partidosJugados;
+  public void setPartidosJugados() {
+    this.partidosJugados++;
   }
 
   public void setPartidosGanados(int partidosGanados) {

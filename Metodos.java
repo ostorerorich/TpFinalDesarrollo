@@ -178,6 +178,9 @@ public class Metodos {
 
           fixture[fecha][i].setDiferenciaGoles();
           fixture[fecha][i + 1].setDiferenciaGoles();
+
+          fixture[fecha][i].setPartidosJugados();
+          fixture[fecha][i + 1].setPartidosJugados();
           i += 2;
         } else {
           throw new NumberFormatException();
