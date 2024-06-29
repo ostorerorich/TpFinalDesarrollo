@@ -12,8 +12,11 @@ public class TpFinal {
         Equipo[][] fixture;
         // Cargar datos de los equipos y jugadores
         System.out.println(" -> Cargar datos de los equipos y jugadores:");
-        Cargar.cargarEquipos(equipos);
-        Cargar.cargarJugadores(jugadores, equipos);
+        /*
+         * Cargar.cargarEquipos(equipos);
+         * Cargar.cargarJugadores(jugadores, equipos);
+         */
+        Cargar.cargarDatos(jugadores, equipos);
 
         // ! Generar fixture
         // Una ves cargados los equipos y jugadores, generamos el fixture

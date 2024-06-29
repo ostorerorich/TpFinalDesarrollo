@@ -18,7 +18,6 @@ public class Metodos {
           break;
         case 1:
           mostrarFixture(fixture);
-          // Cargar.cargarDatos();
           break;
         case 2:
           cargarResultados(fixture, resultados, jugadores);
@@ -30,7 +29,6 @@ public class Metodos {
             }
             System.out.println();
           }
-          // mostrarTabla();
           break;
         case 4:
           mostrarFechas(resultados, fixture);
@@ -40,6 +38,36 @@ public class Metodos {
           break;
         case 6:
           verTablaDePosiciones(equipos);
+          break;
+        case 7:
+          System.out.println("Ingresar nuevo jugador");
+          String[] datos = new String[6];
+          System.out.println("Ingresar nombre: ");
+          datos[0] = sc.nextLine();
+          System.out.println("Ingresar apellido: ");
+          datos[1] = sc.nextLine();
+          System.out.println("Ingresar edad: ");
+          datos[2] = sc.nextLine();
+          System.out.println("Ingresar dni: ");
+          datos[3] = sc.nextLine();
+          System.out.println("Ingresar nro camiseta: ");
+          datos[4] = sc.nextLine();
+          System.out.println("Ingresar nombre equipo: ");
+          datos[5] = sc.nextLine();
+          if (buscarJugador(jugadores, Integer.parseInt(datos[3]))) {
+            System.out.println("El jugador ya se encuentra en el equipo");
+          } else {
+            int equipoPos = buscarPosicionEquipo(equipos, datos[5]);
+            if (equipoPos != -1) {
+              cargarJugador(equipos, new Jugador(datos[0], datos[1], Integer.parseInt(datos[2]),
+                  Integer.parseInt(datos[3]), Integer.parseInt(datos[4]), datos[5]));
+            } else {
+              System.out.println("No se encontro el equipo");
+            }
+          }
+          break;
+        case 8:
+          mostrarJugador(equipos);
           break;
         default:
           System.out.println("Opcion invalida");
@@ -52,6 +80,40 @@ public class Metodos {
     if (exec)
       cargarMenu(fixture, resultados, jugadores, equipos);
 
+  }
+
+  // ! mostrar jugador por camiseta y nombre del equipo
+  public static void mostrarJugador(Equipo[] equipos) {
+    System.out.println("Ingresar nro camiseta: ");
+    int camiseta = Integer.parseInt(sc.nextLine());
+    System.out.println("Ingresar nombre del equipo: ");
+    String nombreEquipo = sc.nextLine();
+    int pos = buscarPosicionEquipo(equipos, nombreEquipo);
+    if (pos != -1) {
+      int posJugador = buscarJugadorCamiseta(equipos[pos].getJugadores(), camiseta);
+      if (posJugador != -1) {
+        System.out.println(equipos[pos].getJugadores()[posJugador].getNombre() + " "
+            + equipos[pos].getJugadores()[posJugador].getApellido());
+      } else {
+        System.out.println("No se encontro el jugador");
+      }
+    } else {
+      System.out.println("No se encontro el equipo");
+    }
+  }
+
+  public static int buscarPosicionEquipo(Equipo[] equipos, String nombre) {
+    int pos = -1;
+    int i = 0;
+    boolean encontrado = false;
+    while (i < equipos.length && !encontrado) {
+      if (equipos[i] != null && equipos[i].getNombre().equalsIgnoreCase(nombre)) {
+        pos = i;
+        encontrado = true;
+      }
+      i++;
+    }
+    return pos;
   }
 
   // ! Cargas de los resultados de la fecha indicada
@@ -156,8 +218,11 @@ public class Metodos {
     boolean existe = false;
     int i = 0;
     while (!existe && i < jugadores.length) {
-      if (jugadores[i].getDni() == dni) {
-        existe = true;
+      if (jugadores[i] != null) {
+        if (jugadores[i].getDni() == dni) {
+          existe = true;
+        }
+
       }
       i++;
     }
@@ -195,7 +260,6 @@ public class Metodos {
   }
 
   // ! Generar fixture
-  // TODO: Lo arregle? Supongo que si
   public static Equipo[][] generarFixture(Equipo[] equipos) {
     Equipo[][] fixture = new Equipo[7][8];
     int cantEquipos = equipos.length;
@@ -216,7 +280,7 @@ public class Metodos {
   }
 
   // ! Mostrar fixture en pantalla
-  // TODO: Lo arregle? Supongo que si
+  // ! Lo arregle? Supongo que si
   public static void mostrarFixture(Equipo[][] fixture) {
     System.out.println("Fixture: \n-----------");
 
