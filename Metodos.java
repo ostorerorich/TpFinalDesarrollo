@@ -69,6 +69,10 @@ public class Metodos {
         case 8:
           mostrarJugador(equipos);
           break;
+        case 9:
+          int prom = edadPromedio(jugadores, 0, 0);
+          System.out.println("Edad promedio de los jugadores: " + prom);
+          break;
         default:
           System.out.println("Opcion invalida");
           break;
@@ -117,7 +121,7 @@ public class Metodos {
   }
 
   // ! Cargas de los resultados de la fecha indicada
-  public static int[][] cargarResultados(Equipo[][] fixture, int[][] resultados, Jugador[] jugadores) {
+  public static void cargarResultados(Equipo[][] fixture, int[][] resultados, Jugador[] jugadores) {
     try {
       System.out.println("Ingresar numero de fecha: ");
       int fecha = Integer.parseInt(sc.nextLine()) - 1;
@@ -130,10 +134,10 @@ public class Metodos {
           System.out.println("Ya se ingresaron los resultados de esta fecha");
         }
       }
-      return resultados;
+
     } catch (Exception e) {
       System.out.println("Error al cargar resultados");
-      return null;
+
     }
   }
 
@@ -380,6 +384,21 @@ public class Metodos {
         }
       }
     }
+  }
+
+  public static int edadPromedio(Jugador[] jugadores, int i, int ac) {
+    int prom = 0;
+    if (jugadores[i] == null || i == jugadores.length) {
+      if (jugadores[i] != null) {
+        prom = (jugadores[i].getEdad() + ac) / i;
+      } else {
+        prom = ac / i;
+      }
+    } else {
+      ac += jugadores[i].getEdad();
+      prom = edadPromedio(jugadores, i + 1, ac);
+    }
+    return prom;
   }
 
   public static void verTablaDePosiciones(Equipo[] equipos) {
