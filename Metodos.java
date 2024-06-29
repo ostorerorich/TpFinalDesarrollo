@@ -58,9 +58,13 @@ public class Metodos {
             System.out.println("El jugador ya se encuentra en el equipo");
           } else {
             int equipoPos = buscarPosicionEquipo(equipos, datos[5]);
-            if (equipoPos != -1) {
-              cargarJugador(equipos, new Jugador(datos[0], datos[1], Integer.parseInt(datos[2]),
-                  Integer.parseInt(datos[3]), Integer.parseInt(datos[4]), datos[5]));
+            Jugador jugadorACargar = new Jugador(datos[0], datos[1], Integer.parseInt(datos[2]),
+                Integer.parseInt(datos[3]),
+                Integer.parseInt(datos[4]), datos[5]);
+            int posNull = posicionNull(jugadores);
+            if (equipoPos != -1 && posNull != -1) {
+              jugadores[posNull] = jugadorACargar;
+              cargarJugador(equipos, jugadorACargar);
             } else {
               System.out.println("No se encontro el equipo");
             }
@@ -72,6 +76,9 @@ public class Metodos {
         case 9:
           int prom = edadPromedio(jugadores, 0, 0);
           System.out.println("Edad promedio de los jugadores: " + prom);
+          break;
+        case 10:
+          mostrarJugadores(jugadores);
           break;
         default:
           System.out.println("Opcion invalida");
@@ -251,10 +258,27 @@ public class Metodos {
     return pos;
   }
 
+  public static int posicionNull(Jugador[] jugadores) {
+    int i = 0;
+    boolean encontrado = false;
+    while (i < jugadores.length && !encontrado) {
+      if (jugadores[i] == null) {
+        encontrado = true;
+      }
+      i++;
+    }
+    if (!encontrado) {
+      i = -1;
+    }
+
+    return i;
+  }
+
   // ! Cargar jugador a un equipo
   public static void cargarJugador(Equipo[] equipos, Jugador jugador) {
     boolean load = false;
     int i = 0;
+
     while (!load && i < equipos.length) {
       if (equipos[i] != null) {
         if (jugador.getEquipo().equalsIgnoreCase(equipos[i].getNombre())) {
@@ -343,12 +367,36 @@ public class Metodos {
     }
   }
 
+  // ! Ordenar jugadores por apellido y nombre, verificar si existe null asi no se
+  // rompe
+  public static void ordenarJugadoresPorApellidoYNombre(Jugador[] jugadores) {
+    for (int i = 0; i < jugadores.length; i++) {
+      for (int j = 0; j < jugadores.length - 1; j++) {
+        if (jugadores[j] != null && jugadores[j + 1] != null) {
+          if (jugadores[j].getApellido().compareTo(jugadores[j + 1].getApellido()) > 0) {
+            Jugador aux = jugadores[j];
+            jugadores[j] = jugadores[j + 1];
+            jugadores[j + 1] = aux;
+          } else if (jugadores[j].getApellido().compareTo(jugadores[j + 1].getApellido()) == 0) {
+            if (jugadores[j].getNombre().compareTo(jugadores[j + 1].getNombre()) > 0) {
+              Jugador aux = jugadores[j];
+              jugadores[j] = jugadores[j + 1];
+              jugadores[j + 1] = aux;
+            }
+          }
+        }
+      }
+    }
+  }
+
   // ! Mostrar jugadores ordenados por apellido
   public static void mostrarJugadores(Jugador[] jugadores) {
-    ordenarJugadores(jugadores);
+    ordenarJugadoresPorApellidoYNombre(jugadores);
     System.out.println("Jugadores: ");
     for (int i = 0; i < jugadores.length; i++) {
-      System.out.println(jugadores[i].getApellido() + " " + jugadores[i].getNombre());
+      if (jugadores[i] != null) {
+        System.out.println(jugadores[i].getApellido() + " " + jugadores[i].getNombre() + " i : " + i);
+      }
     }
   }
 
