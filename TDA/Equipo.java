@@ -134,14 +134,11 @@ public class Equipo {
   public void setGolesEnContra(int golesEnContra) {
     this.golesEnContra += golesEnContra;
   }
-  // !
 
-  // FARLOPA DE NUEVO
   public void sumarPuntos(int puntos) {
     this.puntos += puntos;
   }
 
-  // FARLOPA DE CLASE MARADONA
   public void sumarPartidosJugados() {
     this.partidosJugados++;
   }
