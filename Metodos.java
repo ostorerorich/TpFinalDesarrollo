@@ -94,7 +94,8 @@ public class Metodos {
 
   }
 
-  // ! mostrar jugador por camiseta y nombre del equipo
+  // Busca un jugador por su numero de camiseta y su nombre de equipo, en el caso
+  // de no encontrar el jugador o el equipo imprime en pantalla el resultado
   public static void mostrarJugador(Equipo[] equipos) {
     System.out.println("Ingresar nro camiseta: ");
     int camiseta = Integer.parseInt(sc.nextLine());
@@ -104,8 +105,10 @@ public class Metodos {
     if (pos != -1) {
       int posJugador = buscarJugadorCamiseta(equipos[pos].getJugadores(), camiseta);
       if (posJugador != -1) {
-        System.out.println(equipos[pos].getJugadores()[posJugador].getNombre() + " "
-            + equipos[pos].getJugadores()[posJugador].getApellido());
+        Jugador encontrado = equipos[pos].getJugadores()[posJugador];
+        System.out.println(encontrado.getNombre() + " "
+            + encontrado.getApellido() + " " + encontrado.getEdad() + " " + encontrado.getDni() + " "
+            + encontrado.getNroCamiseta() + " " + encontrado.getEquipo() + " " + encontrado.getGoles());
       } else {
         System.out.println("No se encontro el jugador");
       }
@@ -114,6 +117,7 @@ public class Metodos {
     }
   }
 
+  // Busca la posicion de un equipo en el arreglo de equipos y lo retorna
   public static int buscarPosicionEquipo(Equipo[] equipos, String nombre) {
     int pos = -1;
     int i = 0;
@@ -128,7 +132,8 @@ public class Metodos {
     return pos;
   }
 
-  // ! Cargas de los resultados de la fecha indicada
+  // oide el numero de la fecha y verifica si fue cargada, en el caso de no haber
+  // sido cargada, llama a la funcion cargarFecha
   public static void cargarResultados(Equipo[][] fixture, int[][] resultados, Jugador[] jugadores) {
     try {
       System.out.println("Ingresar numero de fecha: ");
@@ -149,7 +154,8 @@ public class Metodos {
     }
   }
 
-  // ! Carga de la fecha indicada
+  // Carga la fecha ingresada por el usuario, en el caso de que los goles sean
+  // negativos, imprime en pantalla un mensaje de error
   public static void cargarFecha(Jugador[] jugadores, Equipo[][] fixture, int[][] resultados, int fecha) {
     System.out.println("Ingresar resultados de la fecha " + (fecha + 1) + ": ");
     int i = 0;
@@ -201,7 +207,7 @@ public class Metodos {
     }
   }
 
-  // ! Carga de los goles de un jugador
+  // Carga los goles de los jugadores
 
   public static void cargarGoles(Equipo equipo, int goles) {
     Jugador[] jugadoresEquipo = equipo.getJugadores();
@@ -243,7 +249,7 @@ public class Metodos {
     return existe;
   }
 
-  // ! Buscar jugador por camiseta
+  // ! Buscar jugador por camiseta y retorna la posicion en el arreglo
   public static int buscarJugadorCamiseta(Jugador[] jugadores, int camiseta) {
     boolean existe = false;
     int i = 0;
@@ -258,6 +264,7 @@ public class Metodos {
     return pos;
   }
 
+  // metodo implementado para buscar posicion nula en el arreglo de jugadores
   public static int posicionNull(Jugador[] jugadores) {
     int i = 0;
     int pos = 0;
@@ -313,7 +320,6 @@ public class Metodos {
   }
 
   // ! Mostrar fixture en pantalla
-  // ! Lo arregle? Supongo que si
   public static void mostrarFixture(Equipo[][] fixture) {
     System.out.println("Fixture: \n-----------");
 
@@ -327,7 +333,7 @@ public class Metodos {
     }
   }
 
-  // ! Ordenar tabla de jugadores
+  // ! Ordenar tabla de jugadores utilizando bubble sort
   public static void ordenarTabla(Jugador[] jugadores) {
     for (int i = 0; i < jugadores.length; i++) {
       for (int j = 0; j < jugadores.length - 1; j++) {
@@ -342,7 +348,8 @@ public class Metodos {
     }
   }
 
-  // ! Mostrar jugadores segun la cantidad de goles
+  // Llama a la funcion ordenarTabla y muestra en pantalla la tabla de goleadores
+  // ya ordenada
   public static void mostrarTabla(Jugador[] jugadores) {
     ordenarTabla(jugadores);
     System.out.println("  Tabla de goleadores");
@@ -357,6 +364,8 @@ public class Metodos {
   }
 
   // ! Ordenar los jugadores por apellido
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! QUE ES
+  // ESTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
   public static void ordenarJugadores(Jugador[] jugadores) {
     for (int i = 0; i < jugadores.length; i++) {
       for (int j = 0; j < jugadores.length - 1; j++) {
@@ -392,12 +401,15 @@ public class Metodos {
   }
 
   // ! Mostrar jugadores ordenados por apellido
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! QUE ES
+  // ESTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   public static void mostrarJugadores(Jugador[] jugadores) {
     ordenarJugadoresPorApellidoYNombre(jugadores);
-    System.out.println("Jugadores: ");
+    System.out.println(String.format("%-15s %-15s %10s%n", "Nombre", "Apellido", "Equipo"));
     for (int i = 0; i < jugadores.length; i++) {
       if (jugadores[i] != null) {
-        System.out.println(jugadores[i].getApellido() + " " + jugadores[i].getNombre() + " i : " + i);
+        System.out.println(String.format("%-15s %-15s %10s", jugadores[i].getNombre(), jugadores[i].getApellido(),
+            jugadores[i].getEquipo()));
       }
     }
   }
@@ -439,6 +451,7 @@ public class Metodos {
     }
   }
 
+  // metodo recursivo que calcula el promedio de edad de los jugadores
   public static int edadPromedio(Jugador[] jugadores, int i, int ac) {
     int prom = 0;
     if (jugadores[i] == null || i == jugadores.length) {
@@ -454,6 +467,7 @@ public class Metodos {
     return prom;
   }
 
+  // ! Ver tabla de posiciones
   public static void verTablaDePosiciones(Equipo[] equipos) {
     ordenarEquipos(equipos);
     int i = equipos.length - 1;
