@@ -9,7 +9,7 @@ public class Metodos {
   public static void cargarMenu(Equipo[][] fixture, int[][] resultados, Jugador[] jugadores, Equipo[] equipos) {
     boolean exec = true;
     System.out.println(
-        "--> Selecciona una opcion valida: \n1 - Mostrar fixture en pantalla\n2 - Cargar fecha\n3 - Mostrar Tabla\n4 - Mostrar fechas cargadas\n5 - Tabla de goleadores \n6 - Ver tabla de posiciones\n7 - Ingresar nuevo jugador\n8 - Mostrar jugador\n9 - Promedio de edad de jugadores\n10 - Lista de jugadores\n11 - Buscar Jugador por equipo y edad\n 0 - Salir.");
+        "--> Selecciona una opcion valida: \n1 - Mostrar fixture en pantalla\n2 - Cargar fecha\n3 - Mostrar fechas cargadas\n4 - Tabla de goleadores \n5 - Ver tabla de posiciones\n6 - Ingresar nuevo jugador\n7 - Mostrar jugador\n8 - Promedio de edad de jugadores\n9 - Lista de jugadores\n10 - Buscar Jugador por equipo y edad\n 0 - Salir.");
     try {
       int respuesta = Integer.parseInt(sc.nextLine());
       switch (respuesta) {
@@ -23,23 +23,15 @@ public class Metodos {
           cargarResultados(fixture, resultados, jugadores);
           break;
         case 3:
-          for (int i = 0; i < resultados.length; i++) {
-            for (int j = 0; j < resultados[i].length; j++) {
-              System.out.print(resultados[i][j]);
-            }
-            System.out.println();
-          }
-          break;
-        case 4:
           mostrarFechas(resultados, fixture);
           break;
-        case 5:
+        case 4:
           mostrarTabla(jugadores);
           break;
-        case 6:
+        case 5:
           verTablaDePosiciones(equipos);
           break;
-        case 7:
+        case 6:
           System.out.println("Ingresar nuevo jugador");
           String[] datos = new String[6];
           System.out.println("Ingresar apellido: ");
@@ -71,14 +63,14 @@ public class Metodos {
             }
           }
           break;
-        case 8:
+        case 7:
           mostrarJugador(equipos);
           break;
-        case 9:
+        case 8:
           int prom = edadPromedio(jugadores, 0, 0);
           System.out.println("Edad promedio de los jugadores: " + prom);
           break;
-        case 10:
+        case 9:
           try {
             System.out.println(
                 "1 - Bubble sort por apellido y nombre - Metodo mas eficiente \n2 - Selection sort por apellido y nombre - Metodo menos eficiente");
@@ -91,7 +83,7 @@ public class Metodos {
             System.out.println("Opcion invalida");
           }
           break;
-        case 11:
+        case 10:
           mostrarJugadorMenor(equipos);
           break;
         default:
