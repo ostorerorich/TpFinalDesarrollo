@@ -37,7 +37,7 @@ public class Cargar {
             for (int i = 0; i < cantidadEquipos; i++) {
               String[] data = Files.readAllLines(file.toPath()).get(i).split(";");
               if (data != null) {
-                equipos[i] = new Equipo(data[0], data[1].charAt(0));
+                equipos[i] = new Equipo(data[0].toLowerCase(), data[1].charAt(0));
               }
             }
             equiposCargados = true;
@@ -66,7 +66,8 @@ public class Cargar {
             for (int i = 0; i < cantidadJugadores; i++) {
               String[] data = Files.readAllLines(file.toPath()).get(i).split(";");
               if (data != null) {
-                jugadores[i] = new Jugador(data[0], data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3]),
+                jugadores[i] = new Jugador(data[0].toLowerCase(), data[1].toLowerCase(), Integer.parseInt(data[2]),
+                    Integer.parseInt(data[3]),
                     Integer.parseInt(data[4]), data[5]);
                 Metodos.cargarJugador(equipos, jugadores[i]);
               }

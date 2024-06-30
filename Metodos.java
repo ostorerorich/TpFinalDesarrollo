@@ -58,9 +58,10 @@ public class Metodos {
             System.out.println("El jugador ya se encuentra en el equipo");
           } else {
             int equipoPos = buscarPosicionEquipo(equipos, datos[5]);
-            Jugador jugadorACargar = new Jugador(datos[0], datos[1], Integer.parseInt(datos[2]),
+            Jugador jugadorACargar = new Jugador(datos[0].toLowerCase(), datos[1].toLowerCase(),
+                Integer.parseInt(datos[2]),
                 Integer.parseInt(datos[3]),
-                Integer.parseInt(datos[4]), datos[5]);
+                Integer.parseInt(datos[4]), datos[5].toLowerCase());
             int posNull = posicionNull(jugadores);
             if (equipoPos != -1 && posNull != -1) {
               jugadores[posNull] = jugadorACargar;
@@ -236,7 +237,6 @@ public class Metodos {
         if (jugadores[i].getDni() == dni) {
           existe = true;
         }
-
       }
       i++;
     }
@@ -260,18 +260,20 @@ public class Metodos {
 
   public static int posicionNull(Jugador[] jugadores) {
     int i = 0;
+    int pos = 0;
     boolean encontrado = false;
     while (i < jugadores.length && !encontrado) {
       if (jugadores[i] == null) {
         encontrado = true;
+        pos = i;
       }
       i++;
     }
     if (!encontrado) {
-      i = -1;
+      pos = -1;
     }
 
-    return i;
+    return pos;
   }
 
   // ! Cargar jugador a un equipo
