@@ -9,7 +9,7 @@ public class Metodos {
   public static void cargarMenu(Equipo[][] fixture, int[][] resultados, Jugador[] jugadores, Equipo[] equipos) {
     boolean exec = true;
     System.out.println(
-        "--> Selecciona una opcion valida: \n1 - Mostrar fixture en pantalla\n2 - Cargar fecha\n3 - Mostrar Tabla\n4 - Mostrar fechas cargadas\n5 - Tabla \n6 - Ver tabla de posiciones\n7 - Ingresar nuevo jugador\n8 - Mostrar jugador\n9 - Promedio de edad de jugadores\n10 - Lista de jugadores\n11 - Buscar Jugador por equipo y edad\n 0 - Salir.");
+        "--> Selecciona una opcion valida: \n1 - Mostrar fixture en pantalla\n2 - Cargar fecha\n3 - Mostrar Tabla\n4 - Mostrar fechas cargadas\n5 - Tabla de goleadores \n6 - Ver tabla de posiciones\n7 - Ingresar nuevo jugador\n8 - Mostrar jugador\n9 - Promedio de edad de jugadores\n10 - Lista de jugadores\n11 - Buscar Jugador por equipo y edad\n 0 - Salir.");
     try {
       int respuesta = Integer.parseInt(sc.nextLine());
       switch (respuesta) {
@@ -150,7 +150,7 @@ public class Metodos {
   }
 
   public static void mostrarJugador(Equipo[] equipos) {
-    System.out.println("Ingresar nro camiseta: ");
+    System.out.println("Ingresar numero de camiseta: ");
     int camiseta = Integer.parseInt(sc.nextLine());
     System.out.println("Ingresar nombre del equipo: ");
     String nombreEquipo = sc.nextLine();
@@ -188,7 +188,7 @@ public class Metodos {
     try {
       System.out.println("Ingresar numero de fecha valido: ");
       int fecha = Integer.parseInt(sc.nextLine()) - 1;
-      if (fecha < fixture.length && fecha > 0) {
+      if (fecha < fixture.length && fecha >= 0) {
         // en el caso que la columna 4 sea 0, significa que no se ingresaron los
         // resultados, caso contrario para -1
         if (resultados[fecha][8] != -1) {
