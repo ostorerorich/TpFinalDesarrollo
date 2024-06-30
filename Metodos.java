@@ -9,7 +9,7 @@ public class Metodos {
   public static void cargarMenu(Equipo[][] fixture, int[][] resultados, Jugador[] jugadores, Equipo[] equipos) {
     boolean exec = true;
     System.out.println(
-        "--> Selecciona una opcion valida: \n1 - Mostrar Fixture.\n2 - Cargar fecha\n3 - Mostrar Tabla\n4 - Mostrar fechas cargadas\n5 - Tabla \n0 - Salir.");
+        "--> Selecciona una opcion valida: \n1 - Mostrar fixture en pantalla\n2 - Cargar fecha\n3 - Mostrar Tabla\n4 - Mostrar fechas cargadas\n5 - Tabla \n0 - Salir.");
     try {
       int respuesta = Integer.parseInt(sc.nextLine());
       switch (respuesta) {
@@ -132,11 +132,11 @@ public class Metodos {
     return pos;
   }
 
-  // oide el numero de la fecha y verifica si fue cargada, en el caso de no haber
+  // pide el numero de la fecha y verifica si fue cargada, en el caso de no haber
   // sido cargada, llama a la funcion cargarFecha
   public static void cargarResultados(Equipo[][] fixture, int[][] resultados, Jugador[] jugadores) {
     try {
-      System.out.println("Ingresar numero de fecha: ");
+      System.out.println("Ingresar numero de fecha valido: ");
       int fecha = Integer.parseInt(sc.nextLine()) - 1;
       if (fecha < fixture.length) {
         // en el caso que la columna 4 sea 0, significa que no se ingresaron los
@@ -149,8 +149,7 @@ public class Metodos {
       }
 
     } catch (Exception e) {
-      System.out.println("Error al cargar resultados");
-
+      System.out.println("  === Error al cargar resultados ===");
     }
   }
 
@@ -161,9 +160,9 @@ public class Metodos {
     int i = 0;
     while (i < fixture[fecha].length - 1) {
       try {
-        System.out.println("Ingresar goles del equipo " + fixture[fecha][i].getNombre() + ": ");
+        System.out.print("\nIngresar goles del equipo " + fixture[fecha][i].getNombre() + ": ");
         int golesLocal = Integer.parseInt(sc.nextLine());
-        System.out.println("Ingresar goles del equipo " + fixture[fecha][i + 1].getNombre() + ": ");
+        System.out.print("\nIngresar goles del equipo " + fixture[fecha][i + 1].getNombre() + ": ");
         int golesVisitante = Integer.parseInt(sc.nextLine());
 
         if (golesLocal < 0 || golesVisitante < 0) {
@@ -215,7 +214,8 @@ public class Metodos {
     int golesTotales = 0;
     while (golesTotales < goles) {
       try {
-        System.out.println("Ingresar nro Camiseta del jugador de: " + equipo.getNombre() + " que hizo el gol ");
+        System.out
+            .print("\nIngresar el numero de camiseta del jugador de " + equipo.getNombre() + " que hizo el gol: ");
         int camiseta = Integer.parseInt(sc.nextLine());
         int pos = buscarJugadorCamiseta(jugadoresEquipo, camiseta);
         boolean existe = pos != -1;
@@ -224,7 +224,7 @@ public class Metodos {
           jugadoresEquipo[pos].setGoles(1);
           golesTotales++;
         } else {
-          System.out.println("No se encontro el jugador");
+          System.out.println("No se encontro el jugador con la camiseta " + camiseta);
         }
 
       } catch (NumberFormatException e) {
@@ -319,17 +319,17 @@ public class Metodos {
     return fixture;
   }
 
-  // ! Mostrar fixture en pantalla
+  // ? Metodo para mostrar el fixture en pantalla
   public static void mostrarFixture(Equipo[][] fixture) {
-    System.out.println("Fixture: \n-----------");
+    System.out.println("\n ----> Fixture");
 
     for (int i = 0; i < fixture.length; i++) {
-      System.out.println("Fecha " + (i + 1) + ": ");
+      System.out.println(" ----> Fecha " + (i + 1) + " <---- ");
       for (int j = 0; j < fixture[i].length; j += 2) {
         System.out.println(fixture[i][j].getNombre() + " vs " + fixture[i][j + 1].getNombre());
 
       }
-      System.out.println("-----------");
+      System.out.println("---------------");
     }
   }
 
@@ -418,10 +418,10 @@ public class Metodos {
 
     for (int i = 0; i < fixture.length; i++) {
       if (resultados[i][8] == -1) {
-        System.out.println("Fecha " + (i + 1));
+        System.out.println(" ---> Fecha " + (i + 1) + " <----");
         for (int j = 0; j < fixture[i].length; j++) {
-          System.out.println(fixture[i][j].getNombre() + " " + resultados[i][j] + " - " + resultados[i][j + 1] + " "
-              + fixture[i][j + 1].getNombre());
+          System.out.println("-->" + fixture[i][j].getNombre() + " " + resultados[i][j] + " - " + resultados[i][j + 1]
+              + " " + fixture[i][j + 1].getNombre());
           j++;
         }
       } else {
